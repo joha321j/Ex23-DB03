@@ -1,0 +1,36 @@
+use B_DB14_2018
+IF OBJECT_ID('dbo.PET_OWNER', 'U') IS NOT NULL
+DROP TABLE dbo.PET_OWNER
+GO
+
+IF OBJECT_ID('dbo.PET', 'U') IS NOT NULL
+DROP TABLE dbo.PET
+GO
+
+CREATE TABLE dbo.PET_OWNER
+(
+OwnerID int NOT NULL,
+OwnerLastName varchar(20) NOT NULL,
+OwnerFirstName varchar(20) NOT NULL,
+OwnerPhone int NOT NULL,
+OwnerEmail varchar(50) NOT NULL,
+
+CONSTRAINT OwnerPK PRIMARY KEY (OwnerID)
+)
+GO
+
+CREATE TABLE dbo.PET
+(
+PetID int NOT NULL Primary Key,
+PetName varchar(20) NOT NULL,
+PetType varchar(20) NOT NULL,
+PetBreed varchar(20) NOT NULL,
+PetDOB date NOT NULL,
+PetWeight float NOT NULL,
+OwnerPK int NOT NULL
+CONSTRAINT FK_PET_OwnerID FOREIGN KEY (OwnerPK)
+	REFERENCES PET_OWNER (OwnerID)
+	ON DELETE NO ACTION
+	ON UPDATE CASCADE
+)
+GO
